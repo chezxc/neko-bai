@@ -12,9 +12,7 @@ const OpenAI = require("openai");
 
 const { ALLOWED_GUILD_IDS } = require("./allowed-guilds");
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai;
 
 const client = new Client({
   intents: [
@@ -36,6 +34,12 @@ function validateEnv() {
   if (missing.length > 0) {
     throw new Error(`Missing environment variables: ${missing.join(", ")}`);
   }
+}
+
+function initializeOpenAI() {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 }
 
 async function translateCebuano(text) {
@@ -271,6 +275,7 @@ client.on(Events.MessageCreate, async (message) => {
 
 async function main() {
   validateEnv();
+  initializeOpenAI();
 
   try {
     await client.login(process.env.DISCORD_TOKEN);
