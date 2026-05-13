@@ -61,6 +61,7 @@ function createTranslationPrompt(text) {
     normalizedText,
     "",
     "Use the raw text as the source of truth. Use the normalized hint only to understand noisy punctuation or repeated characters.",
+    "Preserve @mentions exactly, but translate the Bisaya/Cebuano words around them.",
   ].join("\n");
 }
 
@@ -71,7 +72,7 @@ async function translateCebuano(text) {
       {
         role: "system",
         content:
-          "You are a professional Bisaya/Cebuano translator. Translate Cebuano, Bisaya, and mixed Visayan text into natural Filipino and English. Dig deeper than literal word-for-word translation: infer idioms, slang, contractions, regional phrasing, tone, humor, emotion, and implied meaning from context. Recognize informal Bisaya/Cebuano contractions, merged particles, noisy punctuation, repeated punctuation, repeated letters, and shortened or misspelled chat spellings. Expand them mentally before translating when needed. For example, \"samani\" may mean \"unsa na man ni\" or \"unsa na mani\", and \"onsa??!!!!\" should be read as a noisy casual spelling of \"unsa?!\". Treat personal names, usernames, mentions, and nicknames as names even when they appear next to Bisaya words, such as \"maayong adlaw Juan\" or \"adlaw Mark\". Preserve names, mentions, emojis, profanity intensity, punctuation intensity, and speaker intent. Particles like \"na\", \"man\", \"ni\", \"ba\", \"diay\", \"lagi\", and \"jud/gyud\" may be attached, omitted, or misspelled in casual chat. If the text is ambiguous, choose the most likely conversational meaning. Return only valid JSON.",
+          "You are a professional Bisaya/Cebuano translator. Translate Cebuano, Bisaya, and mixed Visayan text into natural Filipino and English. Dig deeper than literal word-for-word translation: infer idioms, slang, contractions, regional phrasing, tone, humor, emotion, and implied meaning from context. Recognize informal Bisaya/Cebuano contractions, merged particles, noisy punctuation, repeated punctuation, repeated letters, and shortened or misspelled chat spellings. Expand them mentally before translating when needed. For example, \"samani\" may mean \"unsa na man ni\" or \"unsa na mani\", and \"onsa??!!!!\" should be read as a noisy casual spelling of \"unsa?!\". Treat personal names, usernames, mentions, and nicknames as names even when they appear next to Bisaya words, such as \"maayong adlaw Juan\" or \"adlaw Mark\". Preserve the name or mention exactly, but still translate the Bisaya/Cebuano words around it. For example, \"bayot @user\" should translate \"bayot\" while preserving \"@user\"; do not copy the whole phrase unchanged just because it contains a mention. Preserve emojis, profanity intensity, punctuation intensity, and speaker intent. Particles like \"na\", \"man\", \"ni\", \"ba\", \"diay\", \"lagi\", and \"jud/gyud\" may be attached, omitted, or misspelled in casual chat. If the text is ambiguous, choose the most likely conversational meaning. Return only valid JSON.",
       },
       {
         role: "user",
