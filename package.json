@@ -14,8 +14,8 @@
   "type": "commonjs",
   "dependencies": {
     "@discordjs/voice": "^0.19.2",
-    "@emnapi/core": "^1.10.0",
-    "@emnapi/runtime": "^1.10.0",
+    "@emnapi/core": "^1.11.2",
+    "@emnapi/runtime": "^1.11.2",
     "discord.js": "^14.26.4",
     "dotenv": "^17.4.2",
     "openai": "^6.37.0"
